@@ -33,9 +33,9 @@ sudo -H pip install jetson-stats
 echo "\e[48;5;202m Install the pre-built TensorFlow pip wheel \e[0m"
 sudo apt-get update
 sudo apt-get install -y libhdf5-serial-dev hdf5-tools libhdf5-dev zlib1g-dev zip libjpeg8-dev
-sudo -H pip3 install -U testresources setuptool
+#sudo -H pip3 install -U testresources setuptool
 sudo -H pip3 install -U numpy==1.16.6 future==0.17.1 mock==3.0.5 h5py==2.9.0 keras_preprocessing==1.0.5 keras_applications==1.0.8 gast==0.2.2 enum34 futures protobuf
-sudo -H pip3 install --pre --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v43 tensorflow-gpu
+sudo -H pip3 install --pre --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v43 tensorflow-gpu==tensorflow_gpu-2.0.0+nv19.12-cp36-cp36m-linux_aarch64.whl
 
 # Install the pre-built PyTorch pip wheel 
 echo "\e[45m Install the pre-built PyTorch pip wheel  \e[0m"
