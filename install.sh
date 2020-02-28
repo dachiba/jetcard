@@ -22,36 +22,35 @@ sudo usermod -aG i2c $USER
 echo "\e[104m Install pip and some python dependencies \e[0m"
 sudo apt-get update
 sudo apt install -y python3-pip python3-pil python3-smbus python3-matplotlib cmake
-sudo pip3 install --upgrade pip
-sudo pip3 install flask
-sudo pip3 install --upgrade numpy
+sudo -H pip3 install --upgrade pip
+sudo -H pip3 install flask
 
 # Install jtop
 echo "\e[100m Install jtop \e[0m"
 sudo -H pip install jetson-stats 
 
-
 # Install the pre-built TensorFlow pip wheel
 echo "\e[48;5;202m Install the pre-built TensorFlow pip wheel \e[0m"
 sudo apt-get update
 sudo apt-get install -y libhdf5-serial-dev hdf5-tools libhdf5-dev zlib1g-dev zip libjpeg8-dev
-sudo apt-get install -y python3-pip
-sudo pip3 install -U pip
-sudo pip3 install -U numpy==1.16.1 future==0.17.1 mock==3.0.5 h5py==2.9.0 keras_preprocessing==1.0.5 keras_applications==1.0.6 enum34 futures testresources setuptools protobuf
-sudo pip3 install --pre --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v42 tensorflow-gpu==1.14.0+nv19.10
+sudo -H pip3 install -U testresources setuptool
+sudo -H pip3 install -U numpy==1.16.6 future==0.17.1 mock==3.0.5 h5py==2.9.0 keras_preprocessing==1.0.5 keras_applications==1.0.8 gast==0.2.2 enum34 futures protobuf
+sudo -H pip3 install --pre --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v43 tensorflow-gpu
 
 # Install the pre-built PyTorch pip wheel 
 echo "\e[45m Install the pre-built PyTorch pip wheel  \e[0m"
 cd
-wget https://nvidia.box.com/shared/static/phqe92v26cbhqjohwtvxorrwnmrnfx1o.whl -O torch-1.3.0-cp36-cp36m-linux_aarch64.whl
-sudo pip3 install numpy torch-1.3.0-cp36-cp36m-linux_aarch64.whl
+wget https://nvidia.box.com/shared/static/ncgzus5o23uck9i5oth2n8n06k340l6k.whl -O torch-1.4.0-cp36-cp36m-linux_aarch64.whl
+sudo apt-get install libopenblas-base
+sudo -H pip3 install Cython
+sudo -H pip3 install numpy torch-1.4.0-cp36-cp36m-linux_aarch64.whl
 
 # Install torchvision package
 echo "\e[45m Install torchvision package \e[0m"
-#git clone https://github.com/pytorch/vision
-#cd vision
-#git checkout v0.4.0
-#sudo python3 setup.py install
+git clone https://github.com/pytorch/vision
+cd vision
+git checkout v0.5.0
+sudo python3 setup.py install
 
 # setup Jetson.GPIO
 #echo "\e[100m Install torchvision package \e[0m"
@@ -63,12 +62,12 @@ echo "\e[45m Install torchvision package \e[0m"
 
 # Install traitlets (master, to support the unlink() method)
 echo "\e[48;5;172m Install traitlets \e[0m"
-sudo python3 -m pip install git+https://github.com/ipython/traitlets@master
+sudo -H pip3 install git+https://github.com/ipython/traitlets@master
 
 # Install Jupyter Lab
 echo "\e[48;5;172m Install Jupyter Lab \e[0m"
 sudo apt install -y nodejs npm
-sudo pip3 install jupyter jupyterlab
+sudo -H pip3 install jupyter jupyterlab
 sudo jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 jupyter lab --generate-config
@@ -120,7 +119,6 @@ if [ ! -d "$tf_models_dir" ] ; then
 	cd "$tf_models_dir"/research
 	git checkout 5f4d34fc
 	wget -O protobuf.zip https://github.com/protocolbuffers/protobuf/releases/download/v3.7.1/protoc-3.7.1-linux-aarch_64.zip
-	# wget -O protobuf.zip https://github.com/protocolbuffers/protobuf/releases/download/v3.7.1/protoc-3.7.1-linux-x86_64.zip
 	unzip protobuf.zip
 	./bin/protoc object_detection/protos/*.proto --python_out=.
 	sudo python3 setup.py install
@@ -143,7 +141,6 @@ git checkout no_typescript
 sudo pip3 install -e .
 sudo jupyter labextension install js
 
-
 # Install remaining dependencies for projects
 echo "\e[104m Install remaining dependencies for projects \e[0m"
 sudo apt-get install python-setuptools
@@ -153,4 +150,3 @@ echo "\e[42m All done! \e[0m"
 
 #record the time this script ends
 date
-
