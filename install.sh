@@ -20,7 +20,7 @@ sudo usermod -aG i2c $USER
 
 # Install pip and some python dependencies
 echo "\e[104m Install pip and some python dependencies \e[0m"
-sudo apt-get update
+sudo apt update
 sudo apt install -y python3-pip python3-pil python3-smbus python3-matplotlib cmake
 sudo -H pip3 install --upgrade pip
 sudo -H pip3 install flask
@@ -31,8 +31,8 @@ sudo -H pip install jetson-stats
 
 # Install the pre-built TensorFlow pip wheel
 echo "\e[48;5;202m Install the pre-built TensorFlow pip wheel \e[0m"
-sudo apt-get update
-sudo apt-get install -y libhdf5-serial-dev hdf5-tools libhdf5-dev zlib1g-dev zip libjpeg8-dev
+sudo apt update
+sudo apt install -y libhdf5-serial-dev hdf5-tools libhdf5-dev zlib1g-dev zip libjpeg8-dev
 sudo -H pip3 install -U testresources setuptools
 sudo -H pip3 install -U numpy==1.16.6 future==0.17.1 mock==3.0.5 h5py==2.9.0 keras_preprocessing==1.0.5 keras_applications==1.0.8 gast==0.2.2 enum34 futures protobuf
 sudo -H pip3 install --pre --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v43 tensorflow-gpu==2.0.0+nv19.12
@@ -41,7 +41,7 @@ sudo -H pip3 install --pre --extra-index-url https://developer.download.nvidia.c
 echo "\e[45m Install the pre-built PyTorch pip wheel  \e[0m"
 cd
 wget https://nvidia.box.com/shared/static/ncgzus5o23uck9i5oth2n8n06k340l6k.whl -O torch-1.4.0-cp36-cp36m-linux_aarch64.whl
-sudo apt-get install libopenblas-base
+sudo apt install -y libopenblas-base
 sudo -H pip3 install Cython
 sudo -H pip3 install numpy torch-1.4.0-cp36-cp36m-linux_aarch64.whl
 
@@ -54,7 +54,7 @@ sudo python3 setup.py install
 
 # Install Scipy pip wheel
 echo "\e[45m Install Scipy pip wheel \e[0m"
-sudo apt-get install liblapack-dev libatlas-base-dev gfortran
+sudo apt install -y liblapack-dev libatlas-base-dev gfortran
 sudo -H pip3 install scipy==1.2.3
 
 # Install scikit-learn pip wheel
@@ -63,7 +63,7 @@ sudo -H pip3 install scikit-learn==0.21.3
 
 # Install Pandas pip wheel
 echo "\e[45m Install Pandas pip wheel \e[0m"
-sudo apt install libfreetype6-dev
+sudo apt install -y libfreetype6-dev
 sudo -H pip3 install pandas==0.25.3
 sudo -H pip3 install matplotlib==3.1.3
 sudo -H pip3 install seaborn==0.10.0
@@ -161,24 +161,30 @@ fi
 # Install jupyter_clickable_image_widget
 echo "\e[42m Install jupyter_clickable_image_widget \e[0m"
 cd
-sudo apt-get install nodejs-dev node-gyp libssl1.0-dev
-sudo apt-get install npm
+sudo npm install -g typescript
 git clone https://github.com/jaybdub/jupyter_clickable_image_widget
 cd jupyter_clickable_image_widget
-git checkout no_typescript
-sudo pip3 install -e .
-sudo jupyter labextension install js
+sudo python3 setup.py build
+sudo npm run build
+sudo pip3 install .
+sudo jupyter labextension install .
+sudo jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 # Install remaining dependencies for projects
 echo "\e[104m Install remaining dependencies for projects \e[0m"
-sudo apt-get install python-setuptools
+sudo apt install -y python-setuptools
+
+# Upgrade
+#echo "\e[104m Upgrade \e[0m"
+#sudo apt update
+#sudo apt upgrade -y
 
 # Cleanup
-echo "\e[104m Cleanup \e[0m"
-sudo apt clean
-sudo apt -y autoremove --purge
+#echo "\e[104m Cleanup \e[0m"
+#sudo apt clean
+#sudo apt autoremove -y --purge
 
 echo "\e[42m All done! \e[0m"
 
 #record the time this script ends
-
+date
