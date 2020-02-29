@@ -33,7 +33,7 @@ sudo -H pip install jetson-stats
 echo "\e[48;5;202m Install the pre-built TensorFlow pip wheel \e[0m"
 sudo apt-get update
 sudo apt-get install -y libhdf5-serial-dev hdf5-tools libhdf5-dev zlib1g-dev zip libjpeg8-dev
-#sudo -H pip3 install -U testresources setuptool
+sudo -H pip3 install -U testresources setuptools
 sudo -H pip3 install -U numpy==1.16.6 future==0.17.1 mock==3.0.5 h5py==2.9.0 keras_preprocessing==1.0.5 keras_applications==1.0.8 gast==0.2.2 enum34 futures protobuf
 sudo -H pip3 install --pre --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v43 tensorflow-gpu==2.0.0+nv19.12
 
@@ -52,6 +52,27 @@ cd vision
 git checkout v0.5.0
 sudo python3 setup.py install
 
+# Install Scipy pip wheel
+echo "\e[45m Install Scipy pip wheel \e[0m"
+sudo apt-get install liblapack-dev libatlas-base-dev gfortran
+sudo -H pip3 install scipy==1.2.3
+
+# Install scikit-learn pip wheel
+echo "\e[45m Install scikit-learn pip wheel \e[0m"
+sudo -H pip3 install scikit-learn==0.21.3
+
+# Install Pandas pip wheel
+echo "\e[45m Install Pandas pip wheel \e[0m"
+sudo apt install libfreetype6-dev
+sudo -H pip3 install pandas==0.25.3
+sudo -H pip3 install matplotlib==3.1.3
+sudo -H pip3 install seaborn==0.10.0
+
+# Install Chainer pip wheel
+echo "\e[45m Install Chainer pip wheel \e[0m"
+sudo -H pip3 install fastrlock==0.4 cupy==7.2.0
+sudo -H pip3 install chainer==7.2.0
+
 # setup Jetson.GPIO
 #echo "\e[100m Install torchvision package \e[0m"
 #sudo groupadd -f -r gpio
@@ -64,9 +85,16 @@ sudo python3 setup.py install
 echo "\e[48;5;172m Install traitlets \e[0m"
 sudo -H pip3 install git+https://github.com/ipython/traitlets@master
 
+# Install nodejs stable
+echo "\e[48;5;172m IInstall nodejs stable \e[0m"
+sudo apt install -y nodejs npm
+sudo npm install n -g
+sudo n stable
+sudo apt purge -y nodejs npm
+exec $SHELL -l
+
 # Install Jupyter Lab
 echo "\e[48;5;172m Install Jupyter Lab \e[0m"
-sudo apt install -y nodejs npm
 sudo -H pip3 install jupyter jupyterlab
 sudo jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
@@ -145,8 +173,12 @@ sudo jupyter labextension install js
 echo "\e[104m Install remaining dependencies for projects \e[0m"
 sudo apt-get install python-setuptools
 
+# Cleanup
+echo "\e[104m Cleanup \e[0m"
+sudo apt clean
+sudo apt -y autoremove --purge
 
 echo "\e[42m All done! \e[0m"
 
 #record the time this script ends
-date
+
