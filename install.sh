@@ -88,10 +88,11 @@ sudo -H pip3 install git+https://github.com/ipython/traitlets@master
 # Install nodejs stable
 echo "\e[48;5;172m IInstall nodejs stable \e[0m"
 sudo apt install -y nodejs npm
+sudo npm cache clean
 sudo npm install n -g
 sudo n stable
-sudo apt purge -y nodejs npm
-exec $SHELL -l
+hash -r
+sudo npm update -g npm
 
 # Install Jupyter Lab
 echo "\e[48;5;172m Install Jupyter Lab \e[0m"
