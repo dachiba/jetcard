@@ -41,8 +41,6 @@ echo "\e[104m Install pip and some python dependencies \e[0m"
 sudo -H pip3 install -U pip
 sudo -H pip3 install -U Flask==1.1.1
 sudo -H pip3 install -U Pillow==6.2.2
-sudo -H pip3 install -U matplotlib==3.1.3
-sudo -H pip3 install -U seaborn==0.10.0
 
 # Install jtop pip wheel
 echo "\e[100m Install jtop pip wheel \e[0m"
@@ -78,12 +76,11 @@ sudo -H pip3 install -U scikit-learn==0.21.3
 
 # Install Pandas pip wheel
 echo "\e[45m Install Pandas pip wheel \e[0m"
-sudo -H pip3 install -U pandas==0.25.3
+sudo -H pip3 install -U pandas==0.25.3 matplotlib==3.1.3 seaborn==0.10.0
 
 # Install Chainer pip wheel
 echo "\e[45m Install Chainer pip wheel \e[0m"
-sudo -H pip3 install -U fastrlock==0.4 cupy==7.2.0
-sudo -H pip3 install -U chainer==7.2.0
+sudo -H pip3 install -U fastrlock==0.4 cupy==7.2.0 chainer==7.2.0
 
 # Install traitlets (master, to support the unlink() method)
 echo "\e[48;5;172m Install traitlets \e[0m"
