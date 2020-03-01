@@ -31,7 +31,8 @@ else
 	echo "Swapfile already exists"
 fi
 
-# apt install
+# Install package
+echo "\e[46m Install package \e[0m"
 sudo apt update
 sudo apt install -y python3-pip python3-smbus cmake
 sudo apt install -y libhdf5-serial-dev hdf5-tools libhdf5-dev zlib1g-dev zip libjpeg8-dev
