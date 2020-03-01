@@ -36,10 +36,6 @@ sudo n stable
 hash -r
 sudo npm update -g npm
 
-# Install jtop pip wheel
-echo "\e[100m Install jtop pip wheel \e[0m"
-sudo -H pip install jetson-stats 
-
 # Install pip and some python dependencies
 echo "\e[104m Install pip and some python dependencies \e[0m"
 sudo -H pip3 install -U pip
@@ -47,6 +43,10 @@ sudo -H pip3 install -U Flask==1.1.1
 sudo -H pip3 install -U Pillow==6.2.2
 sudo -H pip3 install -U matplotlib==3.1.3
 sudo -H pip3 install -U seaborn==0.10.0
+
+# Install jtop pip wheel
+echo "\e[100m Install jtop pip wheel \e[0m"
+sudo -H pip install jetson-stats 
 
 # Install the pre-built TensorFlow pip wheel
 echo "\e[48;5;202m Install the pre-built TensorFlow pip wheel \e[0m"
