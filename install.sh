@@ -18,6 +18,19 @@ while true; do sudo -n true; sleep 120; kill -0 "$$" || exit; done 2>/dev/null &
 echo "\e[100m Enable i2c permissions \e[0m"
 sudo usermod -aG i2c $USER
 
+# Make swapfile
+echo "\e[46m Make swapfile \e[0m"
+cd
+if [ ! -f /var/swapfile ]; then
+	sudo fallocate -l 6G /var/swapfile
+	sudo chmod 600 /var/swapfile
+	sudo mkswap /var/swapfile
+	sudo swapon /var/swapfile
+	sudo bash -c 'echo "/var/swapfile swap swap defaults 0 0" >> /etc/fstab'
+else
+	echo "Swapfile already exists"
+fi
+
 # apt install
 sudo apt update
 sudo apt install -y python3-pip python3-smbus cmake
@@ -113,19 +126,6 @@ python3 -m jetcard.create_jupyter_service
 sudo mv jetcard_jupyter.service /etc/systemd/system/jetcard_jupyter.service
 sudo systemctl enable jetcard_jupyter
 sudo systemctl start jetcard_jupyter
-
-# Make swapfile
-echo "\e[46m Make swapfile \e[0m"
-cd
-if [ ! -f /var/swapfile ]; then
-	sudo fallocate -l 4G /var/swapfile
-	sudo chmod 600 /var/swapfile
-	sudo mkswap /var/swapfile
-	sudo swapon /var/swapfile
-	sudo bash -c 'echo "/var/swapfile swap swap defaults 0 0" >> /etc/fstab'
-else
-	echo "Swapfile already exists"
-fi
 
 # Install TensorFlow models repository
 echo "\e[48;5;202m Install TensorFlow models repository \e[0m"
