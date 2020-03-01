@@ -153,6 +153,7 @@ cd jupyter_clickable_image_widget
 git checkout no_typescript
 sudo pip3 install -e .
 sudo jupyter labextension install js
+cd
 
 # Upgrade package
 echo "\e[42m Upgrade package \e[0m"
@@ -162,7 +163,6 @@ sudo apt autoremove -y --purge
 sudo apt clean
 
 echo "\e[42m All done! \e[0m"
-cd
 
 #record the time this script ends
 date
