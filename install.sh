@@ -153,6 +153,13 @@ git checkout no_typescript
 sudo pip3 install -e .
 sudo jupyter labextension install js
 
+# Upgrade package
+echo "\e[42m Upgrade package \e[0m"
+sudo apt update
+sudo apt -y upgrade
+sudo apt autoremove -y --purge
+sudo apt clean
+
 echo "\e[42m All done! \e[0m"
 cd
 
